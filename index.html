@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" />
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous" />
+        <link rel="stylesheet" href="assets/style/style.css" />
+    </head>
+    <body>
+        <div class="header">
+            <h1>Weather DashBoard</h1>
+        </div>
+
+        <div id="search">
+            <div class="col-md-2 search">
+                <input class="form-control form-control-md form-control-borderless" type="search" placeholder="Search for a City">
+            </div>
+            <div class="col-auto">
+                <button class="btn btn-md btn-success" type="submit">Search</button>
+            </div>
+        </div>
+        <div>
+            <div class="col-md-8 weather">
+                <div class="row current">
+                    <div id="cityWeather">
+                        <p id="currentCity"></p>
+                        <img id="currentIcon" src="" alt="weather icon">
+                        <h4 id="currentTemp"></h4>
+                        <h4 id="currentHum"></h4>
+                        <h4 id="currentWind"></h4>
+                        <h4 id="currentUV"></h4>
+                    </div>
+                </div>
+                <div class="row forecast">
+                    <div class="forecast">5-Day Forecast:</div>
+                    <div class="container"></div>
+                </div>
+            </div>
+        </div>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+        <script src="assets/script/script.js"></script>
+    </body>
+</html>

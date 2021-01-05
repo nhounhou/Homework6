@@ -1,0 +1,46 @@
+h1 {
+    text-align: center;
+    background-color: darkslategrey;
+    color: white;
+    font-weight: bolder;
+}
+
+h5 {
+    display: inline-block;
+}
+
+.weather {
+    display: none;
+}
+
+.current {
+    border: 1px solid grey;
+}
+
+.day {
+    border: 1px solid black;
+    background-color: blue;
+}
+
+#search {
+    border: dimgrey solid 2px;
+    display: inline;
+}
+
+#currentCity {
+    display: inline;
+    font-size: 40px;
+}
+
+.forecast {
+    float: left;
+    font-size: 30px;
+}
+
+.divcontainer {
+    background: royalblue;
+    background-clip: padding-box;
+    width: 175px;
+    border-radius: 10px;
+    padding-left: 10px;
+}

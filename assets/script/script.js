@@ -160,7 +160,7 @@ $(document).ready(function() {
         for (var i=0;i<arrayHistory.length;i++) {
             // console.log("displayHistory: "+arrayHistory[i]);
             var btn=$("<button>").attr("value",arrayHistory[i]);
-            btn.addClass("btnHistory");
+            btn.addClass("btn btn-md btn-outline-secondary btnHistory");
             btn.text(arrayHistory[i]);
             div.append(btn);
         };

@@ -45,7 +45,7 @@ $(document).ready(function() {
                 // calling another .ajax to get the UV index
                 var lat=reponse.coord.lat;
                 var lon=reponse.coord.lon;
-                var queryUV="http://api.openweathermap.org/data/2.5/uvi?lat="+lat+"&lon="+lon+"&appid="+apiKey;
+                var queryUV="https://api.openweathermap.org/data/2.5/uvi?lat="+lat+"&lon="+lon+"&appid="+apiKey;
                 $.ajax({
                     url: queryUV,
                     method: "GET"
@@ -79,7 +79,7 @@ $(document).ready(function() {
                     };
 
                     // calling for the 5 days forecast
-                    var queryForecast="http://api.openweathermap.org/data/2.5/forecast?q="+city+"&cnt=45&appid="+apiKey;
+                    var queryForecast="https://api.openweathermap.org/data/2.5/forecast?q="+city+"&cnt=45&appid="+apiKey;
                     $.ajax({
                         url: queryForecast,
                         method: "GET"
@@ -142,7 +142,7 @@ $(document).ready(function() {
         var d=new Date();
         var usDate=d.getMonth()+1+"/"+d.getDate()+"/"+d.getFullYear();
         $(".weather").attr("style","display: block;");
-        var iconeURL="http://openweathermap.org/img/w/"+city.weather[0].icon+".png";
+        var iconeURL="https://openweathermap.org/img/w/"+city.weather[0].icon+".png";
         $("#currentIcon").attr("src",iconeURL);
         $("#currentCity").text(city.name+" ("+usDate+")");
         
@@ -165,7 +165,7 @@ $(document).ready(function() {
             var Date2=Date1[0].split("-");
             var futureDate=Date2[1]+"/"+Date2[2]+"/"+Date2[0];
             var fDate=$("<h5>").text("Date: "+futureDate);
-            var iconURL="http://openweathermap.org/img/w/"+forecastArray[i].weather[0].icon+".png";
+            var iconURL="https://openweathermap.org/img/w/"+forecastArray[i].weather[0].icon+".png";
             // console.log(iconURL);
             var fIcon=$("<img>").attr("src",iconURL);
             var fTemp=$("<h5>").text("Temp: "+KtoF(forecastArray[i].main.temp)+" °F");

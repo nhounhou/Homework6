@@ -15,6 +15,7 @@ h5 {
 
 .current {
     border: 1px solid grey;
+    margin-left: 5px;
 }
 
 .day {
@@ -35,12 +36,53 @@ h5 {
 .forecast {
     float: left;
     font-size: 30px;
+    margin-left: 5px;;
+}
+
+.container {
+    background-color: cadetblue;;
 }
 
 .divcontainer {
     background: royalblue;
     background-clip: padding-box;
-    width: 175px;
+    width: 195px;
     border-radius: 10px;
     padding-left: 10px;
+}
+
+#currentUV, #UVIndex {
+    display: inline;
+}
+
+.UVlow {
+    background: green;
+    background-clip: padding-box;
+}
+
+.UVmod {
+    background: lightsalmon;
+    background-clip: padding-box;
+}
+
+.UVhigh {
+    background: darkorange;
+    background-clip: padding-box;
+}
+
+.UVvhigh {
+    background: purple;
+    background-clip: padding-box;
+}
+
+.UVext {
+    background: darkred;
+    background-clip: padding-box;
+}
+
+.btnHistory {
+    display: block;
+    width: 290px;
+    text-align: left;
+    margin: 0;
 }

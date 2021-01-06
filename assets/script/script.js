@@ -1,5 +1,6 @@
 $(document).ready(function() {
     var button=$(".btn");
+    var arrayHistory=[];
 
     button.click(function(){
         var city=$(".form-control").val();
@@ -7,8 +8,6 @@ $(document).ready(function() {
             alert("Please type in a city to search");
             return;
         } else {
-            // calling function to add to the city search list and save to the localStorage
-
             // getting the data for the weather of the current city
             var apiKey="a514055f038fdd2161edb41030d73126";
             var queryURL="https://api.openweathermap.org/data/2.5/weather?q="+city+"&appid="+apiKey;
@@ -29,13 +28,33 @@ $(document).ready(function() {
                     url: queryUV,
                     method: "GET"
                 }).then(function(UV){
-                    $("#currentUV").text("UV Index: "+UV.value);
+                    $("#currentUV").text("UV Index: ");
+                    $("#UVIndex").text(UV.value);
                     //apply the color coded for the UV index
                     //  1-2: low
                     //  3-5: moderate
                     //  6-7: high
                     //  8-10: very high
                     //  >11: extreme
+                    var numUV=parseInt(UV.value);
+                    $("#UVIndex").removeClass();
+                    switch (true) {
+                        case (numUV >= 0 && numUV <= 2):
+                            $("#UVIndex").addClass("UVlow");
+                            break;
+                        case (numUV >= 3 && numUV <= 5):
+                            $("#UVIndex").addClass("UVmod");
+                            break;
+                        case (numUV >= 6 && numUV <= 7):
+                            $("#UVIndex").addClass("UVhigh");
+                            break;
+                        case (numUV >= 8 && numUV <= 10):
+                            $("#UVIndex").addClass("UVvhigh");
+                            break;
+                        default:
+                            $("#UVIndex").addClass("UVext");
+                            break;
+                    };
 
                     // calling for the 5 days forecast
                     var queryForecast="http://api.openweathermap.org/data/2.5/forecast?q="+city+"&cnt=45&appid="+apiKey;
@@ -50,6 +69,8 @@ $(document).ready(function() {
                     });
                 });
             });
+            // calling function to add to the city search list and save to the localStorage
+            addHistory(city);
         };
     });
 
@@ -79,6 +100,7 @@ $(document).ready(function() {
     function updateForecast(future){
         console.log(future);
         var forecast=$(".container");
+        forecast.empty();
         var forecastArray=[future.list[8],future.list[16],future.list[24],future.list[32],future.list[39]];
         for (i=0;i<5;i++){
             console.log(forecastArray);
@@ -96,6 +118,31 @@ $(document).ready(function() {
             div.attr("style","float: left; margin-left: 20px; border: 1px solid black;");
             div.addClass("divcontainer");
             forecast.append(div);
+        };
+    };
+
+    function addHistory(ville){
+        if (!(localStorage.getItem("weather")===null)){
+            arrayHistory=JSON.parse(localStorage.getItem("weather"));
+        };
+
+        // save the city only if not already saved
+        if (arrayHistory.indexOf(ville)<0){
+            arrayHistory.push(ville);
+            localStorage.setItem("weather",JSON.stringify(arrayHistory));
+        };
+        displayHistory();
+    };
+
+    function displayHistory(){
+        var div=$("#search");
+        $(".btnHistory").remove();
+        for (var i=0;i<arrayHistory.length;i++) {
+            console.log("displayHistory: "+arrayHistory[i]);
+            var btn=$("<button>").attr("value",arrayHistory[i]);
+            btn.addClass("btnHistory");
+            btn.text(arrayHistory[i]);
+            div.append(btn);
         };
     };
 });

@@ -1,8 +1,21 @@
 $(document).ready(function() {
-    var button=$(".btn");
+    var button=$("#btnSearch");
     var arrayHistory=[];
 
     button.click(function(){
+        getCity();
+    });
+
+    $("#btnClear").click(function(){
+        console.log("Clear clicked");
+        $(".btnHistory").remove();
+        $(".form-control").val("");
+        localStorage.removeItem("weather");
+        arrayHistory=[];
+        $(".weather").attr("style","display: none;");
+    });
+
+    function getCity(){
         var city=$(".form-control").val();
         if (city.length===0) {
             alert("Please type in a city to search");
@@ -10,8 +23,8 @@ $(document).ready(function() {
         } else {
             // getting the data for the weather of the current city
             var apiKey="a514055f038fdd2161edb41030d73126";
-            var queryURL="https://api.openweathermap.org/data/2.5/weather?q="+city+"&appid="+apiKey;
-            console.log(queryURL);
+            var queryURL="https://api.openweathermap.org/data/2.5/weather?q="+city+"&units=standard&appid="+apiKey;
+            // console.log(queryURL);
             $.ajax({
                 url: queryURL,
                 method:"GET"
@@ -72,7 +85,14 @@ $(document).ready(function() {
             // calling function to add to the city search list and save to the localStorage
             addHistory(city);
         };
-    });
+
+        $(".btnHistory").click(function(){
+            // event.preventDefault();
+            console.log($(this).attr("value"));
+            $(".form-control").val($(this).attr("value"));
+            getCity();
+        });    
+    };
 
     function KtoF(Kdegre){
         var tempC=Kdegre - 273;
@@ -81,7 +101,7 @@ $(document).ready(function() {
     };
 
     function updateCurrent(city){
-        console.log(city);
+        // console.log(city);
         var d=new Date();
         var usDate=d.getMonth()+1+"/"+d.getDate()+"/"+d.getFullYear();
         $(".weather").attr("style","display: block;");
@@ -92,27 +112,27 @@ $(document).ready(function() {
         // var tempK=reponse.main.temp;
         // var tempC=tempK - 273;
         // var tempF=Math.floor(tempC * (9/5) + 32);
-        $("#currentTemp").text("Temperature: "+KtoF(city.main.temp)+" F");
+        $("#currentTemp").text("Temperature: "+KtoF(city.main.temp)+" °F");
         $("#currentHum").text("Humidity: "+city.main.humidity+" %");
         $("#currentWind").text("Wind Speed: "+city.wind.speed+" mph");
     };
 
     function updateForecast(future){
-        console.log(future);
+        // console.log(future);
         var forecast=$(".container");
         forecast.empty();
         var forecastArray=[future.list[8],future.list[16],future.list[24],future.list[32],future.list[39]];
         for (i=0;i<5;i++){
-            console.log(forecastArray);
+            // console.log(forecastArray);
             var Date1=forecastArray[i].dt_txt.split(" ");
             var Date2=Date1[0].split("-");
             var futureDate=Date2[1]+"/"+Date2[2]+"/"+Date2[0];
-            var fDate=$("<h5>").text(futureDate);
+            var fDate=$("<h5>").text("Date: "+futureDate);
             var iconURL="http://openweathermap.org/img/w/"+forecastArray[i].weather[0].icon+".png";
-            console.log(iconURL);
+            // console.log(iconURL);
             var fIcon=$("<img>").attr("src",iconURL);
-            var fTemp=$("<h5>").text(KtoF(forecastArray[i].main.temp)+" F");
-            var fHum=$("<h5>").text(forecastArray[i].main.humidity+" %");
+            var fTemp=$("<h5>").text("Temp: "+KtoF(forecastArray[i].main.temp)+" °F");
+            var fHum=$("<h5>").text("Humidity: "+forecastArray[i].main.humidity+" %");
             var div=$("<div>");
             div.append(fDate, $("<p>"), fIcon, $("<p>"), fTemp, $("<p>"), fHum);
             div.attr("style","float: left; margin-left: 20px; border: 1px solid black;");
@@ -138,7 +158,7 @@ $(document).ready(function() {
         var div=$("#search");
         $(".btnHistory").remove();
         for (var i=0;i<arrayHistory.length;i++) {
-            console.log("displayHistory: "+arrayHistory[i]);
+            // console.log("displayHistory: "+arrayHistory[i]);
             var btn=$("<button>").attr("value",arrayHistory[i]);
             btn.addClass("btnHistory");
             btn.text(arrayHistory[i]);

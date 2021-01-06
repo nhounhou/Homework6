@@ -33,18 +33,23 @@ h5 {
     font-size: 40px;
 }
 
+#cityWeather {
+    margin-left: 5px;
+}
+
 .forecast {
     float: left;
     font-size: 30px;
     margin-left: 5px;;
 }
 
-.container {
+/* .container {
     background-color: cadetblue;;
-}
+} */
 
 .divcontainer {
     background: royalblue;
+    color: white;
     background-clip: padding-box;
     width: 195px;
     border-radius: 10px;

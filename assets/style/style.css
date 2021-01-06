@@ -93,3 +93,8 @@ h5 {
     /* width: Calc((100% / 3) - 20px); */
     width: 100%;
 }
+
+#cityPicture {
+    width: auto;
+    height: 200px;
+}

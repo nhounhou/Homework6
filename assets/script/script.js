@@ -2,6 +2,12 @@ $(document).ready(function() {
     var button=$("#btnSearch");
     var arrayHistory=[];
 
+    // creating the search city list history if data are save in the localStorage
+    if (!(localStorage.getItem("weather")===null)){
+        arrayHistory=JSON.parse(localStorage.getItem("weather"));
+        displayHistory();
+    };
+
     button.click(function(){
         getCity();
     });
@@ -32,6 +38,9 @@ $(document).ready(function() {
 
                 // calling function to update the current city weather
                 updateCurrent(reponse);
+
+                //get a random picture of the city
+                getPicture(city);
 
                 // calling another .ajax to get the UV index
                 var lat=reponse.coord.lat;
@@ -86,12 +95,40 @@ $(document).ready(function() {
             addHistory(city);
         };
 
-        $(".btnHistory").click(function(){
-            // event.preventDefault();
-            console.log($(this).attr("value"));
-            $(".form-control").val($(this).attr("value"));
-            getCity();
-        });    
+        // $(".btnHistory").click(function(){
+        //     // event.preventDefault();
+        //     console.log($(this).attr("value"));
+        //     $(".form-control").val($(this).attr("value"));
+        //     getCity();
+        // });    
+    };
+
+    function getPicture(commune) {
+        // var commune=prompt("name of the city?");
+        console.log("get picture for "+commune);
+        var apiKey="19788868-06966a58fd331eafcc5fbc91d";
+        var queryURL="https://pixabay.com/api/?key="+apiKey+"&q="+commune+"&image_type=photo";
+        $.ajax({
+            url: queryURL,
+            method: "GET"
+        }).then(function(response){
+            console.log("getPicture");
+            console.log(response);
+            var randPic=Math.floor(Math.random() * (response.hits.length-1));
+            console.log(randPic);
+            if (response.total>0){
+                var img=$("<img>");
+                var imgURL=response.hits[randPic].largeImageURL;
+                var imgDesc=response.hits[randPic].tags;
+                var p=$("<p>");
+                $(".cityPicture").empty();
+                p.text(imgDesc);
+                img.attr("src",imgURL);
+                img.attr("alt",imgDesc);
+                img.attr("id","cityPicture");
+                $(".cityPicture").append(img, p);
+            };
+        });        
     };
 
     function KtoF(Kdegre){
@@ -164,5 +201,12 @@ $(document).ready(function() {
             btn.text(arrayHistory[i]);
             div.append(btn);
         };
+
+        $(".btnHistory").click(function(){
+            // event.preventDefault();
+            console.log($(this).attr("value"));
+            $(".form-control").val($(this).attr("value"));
+            getCity();
+        });    
     };
 });

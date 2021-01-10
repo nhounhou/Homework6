@@ -37,6 +37,7 @@ $(document).ready(function() {
             }).then(function(reponse){
 
                 // calling function to update the current city weather
+                // console.log("current: "+reponse);
                 updateCurrent(reponse);
 
                 //get a random picture of the city
@@ -132,13 +133,55 @@ $(document).ready(function() {
     };
 
     function KtoF(Kdegre){
-        var tempC=Kdegre - 273;
+        var tempC=Kdegre - 273.15;
         var tempF=Math.floor(tempC * (9/5) + 32);
         return tempF;
     };
 
+    function FtoC(Fdegre){
+        return ((Fdegre - 32) * 5/9).toFixed(2);
+    };
+
+    function CtoF(Cdegre){
+        return ((Cdegre * 9/5) + 32).toFixed(2);
+    };
+
+    $("#btnTemp").click(function(){
+        var tempUnit=$("#btnTemp").attr("data-value");
+        var currTemp=$("#currentTemp").text().split(" ");
+        var fore1=$("#forecastTemp0").text().split(" ");
+        var fore2=$("#forecastTemp1").text().split(" ");
+        var fore3=$("#forecastTemp2").text().split(" ");
+        var fore4=$("#forecastTemp3").text().split(" ");
+        var fore5=$("#forecastTemp4").text().split(" ");
+
+        console.log("conversion: "+currTemp);
+
+        if (tempUnit==="F"){
+            var unit=" °C";
+            $("#currentTemp").text("Temperature "+FtoC(currTemp[1])+unit); 
+            $("#forecastTemp0").text("Temp: "+FtoC(fore1[1])+unit);
+            $("#forecastTemp1").text("Temp: "+FtoC(fore2[1])+unit);
+            $("#forecastTemp2").text("Temp: "+FtoC(fore3[1])+unit);
+            $("#forecastTemp3").text("Temp: "+FtoC(fore4[1])+unit);
+            $("#forecastTemp4").text("Temp: "+FtoC(fore5[1])+unit);
+            $("#btnTemp").attr("data-value","C");
+            $("#btnTemp").text("Temp to °F");
+        } else {
+            var unit=" °F";
+            $("#currentTemp").text("Temperature "+CtoF(currTemp[1])+unit); 
+            $("#forecastTemp0").text("Temp: "+CtoF(fore1[1])+unit);
+            $("#forecastTemp1").text("Temp: "+CtoF(fore2[1])+unit);
+            $("#forecastTemp2").text("Temp: "+CtoF(fore3[1])+unit);
+            $("#forecastTemp3").text("Temp: "+CtoF(fore4[1])+unit);
+            $("#forecastTemp4").text("Temp: "+CtoF(fore5[1])+unit);
+            $("#btnTemp").attr("data-value","F");
+            $("#btnTemp").text("Temp to °C");
+        };
+    });
+
     function updateCurrent(city){
-        // console.log(city);
+        // console.log("current: "+$(city));
         var d=new Date();
         var usDate=d.getMonth()+1+"/"+d.getDate()+"/"+d.getFullYear();
         $(".weather").attr("style","display: block;");
@@ -149,9 +192,11 @@ $(document).ready(function() {
         // var tempK=reponse.main.temp;
         // var tempC=tempK - 273;
         // var tempF=Math.floor(tempC * (9/5) + 32);
-        $("#currentTemp").text("Temperature: "+KtoF(city.main.temp)+" °F");
+        $("#currentTemp").text("Temperature: "+KtoF(city.main.temp).toFixed(2)+" °F");
+        $("#btnTemp").attr("data-value","F");
+        $("#btnTemp").text("Temp to °C");
         $("#currentHum").text("Humidity: "+city.main.humidity+" %");
-        $("#currentWind").text("Wind Speed: "+city.wind.speed+" mph");
+        $("#currentWind").text("Wind Speed: "+city.wind.speed+" m/s");
     };
 
     function updateForecast(future){
@@ -168,7 +213,8 @@ $(document).ready(function() {
             var iconURL="https://openweathermap.org/img/w/"+forecastArray[i].weather[0].icon+".png";
             // console.log(iconURL);
             var fIcon=$("<img>").attr("src",iconURL);
-            var fTemp=$("<h5>").text("Temp: "+KtoF(forecastArray[i].main.temp)+" °F");
+            var fTemp=$("<h5>").text("Temp: "+KtoF(forecastArray[i].main.temp).toFixed(2)+" °F");
+            fTemp.attr("id","forecastTemp"+i);
             var fHum=$("<h5>").text("Humidity: "+forecastArray[i].main.humidity+" %");
             var div=$("<div>");
             div.append(fDate, $("<p>"), fIcon, $("<p>"), fTemp, $("<p>"), fHum);

@@ -12,7 +12,9 @@
     - [addHistory(city)](#addhistory(city))
     - [displayHistory()](#displayhistory())
     - [getPicture(city)](#getpicture(city))
-- [Room For Improvements](#room-for-improvements())
+    - [FtoC](#ktoc)
+    - [CtoF](#ctof)
+
 - [Credits](#credits)
 
 # Homework Presentation
@@ -41,7 +43,8 @@ THEN I am presented with the last searched city forecast
 
 # ScreenShot
 ![At Start](./assets/image/Starter.jpg)  
-![Full Page Data](./assets/image/webpageFull.jpg)
+![Full Page Data](./assets/image/webpageFull.jpg)  
+![Full Page Data](./assets/image/webpageFullCelsius.jpg)  
 
 # Assignment Aproach
 Giving all the acceptance criteria, I tried to have the webpage to look as much as possible to the sample given to us.  
@@ -81,9 +84,15 @@ Function that will read (get) the data saved in the `localStorage` and display t
 Function that take one parameter. That parameter is the city of which the function will get a picture related to the city.  
 The picture will be fetch by the call to the Pixabay API. The return can be up to 25 differents picture, the function will randomly select one to be displayed on the page, next to the current weather data.
 
-# Room for Improvements
-- 2 more `button` can be added to the tool to do a Temperature (to Celsius) and length (to metric) conversion.
+### FtoC(degre)
+convert a fahrenheit temperature to celcius
+
+### CtoF(degre)
+convert a celsius temperature to fahrenheit
 
 # Credits
 [OpenWeatherMap API](https://openweathermap.org)  
-[Pixabay API](https://pixabay.com)
+[Pixabay API](https://pixabay.com)  
+[BootStrap](https://getbootstrap.com)  
+[JQuery](https://jquery.com)  
+[Font Awesome](https://fontawesome.com)

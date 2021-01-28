@@ -38,8 +38,8 @@ WHEN I open the weather dashboard
 THEN I am presented with the last searched city forecast
 
 # Links
-[Repository Folder](https://github.com/nhounhou/Homework6)  
-[Weather Tool](https://nhounhou.github.io/Homework6)
+[Repository Folder](https://github.com/nhounhou/WeatherDashBoard)  
+[Weather Tool](https://nhounhou.github.io/WeatherDashBoard)
 
 # ScreenShot
 ![At Start](./assets/image/Starter.jpg)  
